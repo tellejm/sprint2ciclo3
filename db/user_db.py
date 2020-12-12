@@ -44,6 +44,15 @@ def get_user(username: str):
         return database_users[username]
     else:
         return None
+
+def verificador(username: str):
+    if username in database_users.keys():
+        return username
+        print(username)
+    else:
+        return None
+        print("None")
+
 def update_user(user_in_db: UserInDB,contrasena_in_db: UserInDB,
                 nombre_in_db : UserInDB,apellido_in_db: UserInDB,
                 correo_in_db : UserInDB,ciudad_in_db : UserInDB,
