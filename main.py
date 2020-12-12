@@ -74,7 +74,7 @@ async def delete_user(username: str):
     
     try:
         del database_users[username]
-        return database_users
+        return database_users, {"Usuario " + username + " Eliminado"}
     
     except:
         raise HTTPException(status_code=404, detail="Usuario no existe")
