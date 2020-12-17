@@ -15,7 +15,7 @@ api.include_router(egresos.router)
 
 origins = [
     "http://localhost.tiangolo.com", "https://localhost.tiangolo.com",
-    "http://localhost", "http://localhost:8080", "http://mis-finanzas-sprint.herokuapp.com"
+    "http://localhost", "http://localhost:8080", "https://mis-finanzas-sprint.herokuapp.com"
 ]
 api.add_middleware(
     CORSMiddleware, allow_origins=origins,
