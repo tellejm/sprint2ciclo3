@@ -1,9 +1,15 @@
+# ---------------------------------- Import usuario
 from db.user_db import UserInDB
 from typing import Dict
 from db.user_db import update_user, get_user, database_users, verificador
 from models.user_models import UserIn, UserOut
 
+# -------------------------------------import formulario preguntas
+from db.user_q_db import User
+from models.user import User
+from db.user_q_db import database_users_q, get_user_q, set_user_q
 
+#--------------------------------------
 
 import datetime
 from fastapi import FastAPI
@@ -14,6 +20,8 @@ origins = [
     "http://localhost.tiangolo.com", "https://localhost.tiangolo.com",
     "http://localhost", "http://localhost:8080",
 ]
+
+#----------------------------------- Consultas usuario
 api.add_middleware(
     CORSMiddleware, allow_origins=origins,
     allow_credentials=True, allow_methods=["*"], allow_headers=["*"],
@@ -78,3 +86,18 @@ async def delete_user(username: str):
     
     except:
         raise HTTPException(status_code=404, detail="Usuario no existe")
+        
+#------------------------------------------ Consultas formulario preguntas
+@api.get("/users/question/", response_model=Dict[str, User])
+async def get_q_user():
+    return database_users_q
+
+
+@api.post("/users/question/crear/")      
+def savequestion(user:User):
+    set_user_q(user)
+    return "Gracias por su colaboracion"
+#-------------------------------------------
+
+
+
