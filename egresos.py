@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from db.egre_db import EgresoInDb, database_egresos, get_user_egresos, set_egreso
+from db.egre_db import EgresoInDb, database_egresos, set_egreso
 from models.egresos import Egresos
 
 router = APIRouter()
@@ -13,10 +13,17 @@ def saveEgresos(egresos: Egresos):
 @router.get('/egresos/{username}')
 def get_egresos(username: str): 
     egresos = {}
-    n = 0
     for i in database_egresos:
         if database_egresos[i].username == username:
-            egresos[n] = database_egresos[i]
-            n+=1
+            egresos[i] = database_egresos[i]
     return egresos
+
+@router.delete('/egresos/{Idegresos}')
+def delete_egreso(Idegresos: int):
+    try:
+        print(database_egresos[Idegresos])
+        del database_egresos[Idegresos]
+        return database_egresos, {"Usuario " + Idegresos + " Eliminado"}
     
+    except:
+        raise HTTPException(status_code=404, detail="Egreso no encontrado")
